@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshDay - продукты с доставкой</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <a href="index.html"><img src="images/logo.png" alt="FreshDay" class="logo"></a>
+        <div class="nav-item catalog-btn">Каталог</div>
+        <div class="search">
+            <input type="text" placeholder="Поиск продуктов..." id="search-input">
+        </div>
+        <div class="nav-item auth-btn">Войти</div>
+        <div class="nav-item orders-btn">Заказы</div>
+        <div class="nav-item favorites-btn">Избранное</div>
+        <div class="nav-item cart-btn">Корзина <span class="cart-counter">0</span></div>
+    </header>
+    
+		<!-- Каталог (изначально скрыт) -->
+	<div class="catalog-overlay" id="catalog-overlay"></div>
+	<div class="catalog-menu" id="catalog-menu">
+		<h3>Каталог продуктов</h3>
+		<ul class="categories">
+			<li data-category="all">Все товары</li>
+			<li data-category="vegetables">Овощи</li>
+			<li data-category="fruits">Фрукты</li>
+			<li data-category="bakery">Выпечка</li>
+			<li data-category="dairy">Молочные продукты</li>
+			<li data-category="meat">Мясо</li>
+			<li data-category="fish">Рыба</li>
+			<li data-category="groceries">Бакалея</li>
+		</ul>
+	</div>
+    <section class="promo-banner">
+        <h2>Акции этой недели! Скидки до 30% на свежие продукты</h2>
+    </section>
+    
+    <main class="main-content">
+        <h2 class="section-title">Рекомендуемые товары</h2>
+        <div class="products-scroll" id="products-container">
+            <!-- Товары будут загружаться через JavaScript -->
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>FreshDay - свежие продукты с доставкой</h3>
+            <div class="footer-contacts">
+                <p>Телефон: +7 (123) 456-78-90</p>
+                <p>Email: info@freshday.ru</p>
+                <p>Режим работы: ежедневно с 8:00 до 22:00</p>
+            </div>
+            <div class="footer-social">
+                <!-- Иконки соцсетей -->
+            </div>
+            <p class="copyright">© 2023 FreshDay. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
