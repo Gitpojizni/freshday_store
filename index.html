@@ -18,6 +18,37 @@
         <div class="nav-item favorites-btn">Избранное</div>
         <div class="nav-item cart-btn">Корзина <span class="cart-counter">0</span></div>
     </header>
+
+	<!-- Кнопка авторизации в шапке -->
+<div class="nav-item auth-btn">Войти</div>
+
+<!-- Модальное окно -->
+<div id="auth-modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    
+    <!-- Форма входа -->
+    <div id="login-form">
+      <h2>Вход</h2>
+      <input type="email" id="login-email" placeholder="Email" required>
+      <input type="password" id="login-password" placeholder="Пароль" required>
+      <button onclick="login()">Войти</button>
+      <p>Нет аккаунта? <a href="#" onclick="showRegister()">Зарегистрироваться</a></p>
+    </div>
+
+    <!-- Форма регистрации -->
+    <div id="register-form" style="display: none;">
+      <h2>Регистрация</h2>
+      <input type="email" id="register-email" placeholder="Email" required>
+      <input type="password" id="register-password" placeholder="Пароль" required>
+      <input type="password" id="register-confirm" placeholder="Повторите пароль" required>
+      <button onclick="register()">Создать аккаунт</button>
+      <p>Уже есть аккаунт? <a href="#" onclick="showLogin()">Войти</a></p>
+    </div>
+
+    <div id="auth-message"></div>
+  </div>
+</div>
     
 		<!-- Каталог (изначально скрыт) -->
 	<div class="catalog-overlay" id="catalog-overlay"></div>
