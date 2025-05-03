@@ -213,3 +213,131 @@ function addToCart(productId) {
     // Можно добавить анимацию или уведомление
     alert('Товар добавлен в корзину!');
 }
+
+// User Management System
+let users = JSON.parse(localStorage.getItem('users')) || [];
+let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+// Modal Functions
+function showAuthModal() {
+  document.getElementById('auth-modal').style.display = 'block';
+  showLogin();
+}
+
+function closeModal() {
+  document.getElementById('auth-modal').style.display = 'none';
+  clearForms();
+}
+
+function clearForms() {
+  document.getElementById('login-email').value = '';
+  document.getElementById('login-password').value = '';
+  document.getElementById('register-email').value = '';
+  document.getElementById('register-password').value = '';
+  document.getElementById('register-confirm').value = '';
+  document.getElementById('auth-message').textContent = '';
+}
+
+// Form Toggle
+function showLogin() {
+  document.getElementById('login-form').style.display = 'block';
+  document.getElementById('register-form').style.display = 'none';
+}
+
+function showRegister() {
+  document.getElementById('login-form').style.display = 'none';
+  document.getElementById('register-form').style.display = 'block';
+}
+
+// Auth Functions
+function register() {
+  const email = document.getElementById('register-email').value;
+  const password = document.getElementById('register-password').value;
+  const confirm = document.getElementById('register-confirm').value;
+
+  if (!validateEmail(email)) {
+    showMessage('Некорректный email!', 'error');
+    return;
+  }
+
+  if (password !== confirm) {
+    showMessage('Пароли не совпадают!', 'error');
+    return;
+  }
+
+  if (users.some(user => user.email === email)) {
+    showMessage('Пользователь уже существует!', 'error');
+    return;
+  }
+
+  const newUser = { email, password };
+  users.push(newUser);
+  localStorage.setItem('users', JSON.stringify(users));
+  showMessage('Регистрация успешна!', 'success');
+  setTimeout(() => {
+    closeModal();
+    loginUser(newUser);
+  }, 1500);
+}
+
+function login() {
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+  const user = users.find(u => u.email === email && u.password === password);
+
+  if (user) {
+    loginUser(user);
+    closeModal();
+  } else {
+    showMessage('Неверные учетные данные!', 'error');
+  }
+}
+
+function loginUser(user) {
+  currentUser = user;
+  localStorage.setItem('currentUser', JSON.stringify(user));
+  updateAuthUI();
+}
+
+function logout() {
+  currentUser = null;
+  localStorage.removeItem('currentUser');
+  updateAuthUI();
+}
+
+// Helpers
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function showMessage(text, type = 'error') {
+  const messageEl = document.getElementById('auth-message');
+  messageEl.textContent = text;
+  messageEl.className = type;
+  setTimeout(() => {
+    messageEl.textContent = '';
+    messageEl.className = '';
+  }, 3000);
+}
+
+function updateAuthUI() {
+  const authBtn = document.querySelector('.auth-btn');
+  if (currentUser) {
+    authBtn.textContent = 'Выйти';
+    authBtn.onclick = logout;
+  } else {
+    authBtn.textContent = 'Войти';
+    authBtn.onclick = showAuthModal;
+  }
+}
+
+// Инициализация
+updateAuthUI();
+
+// Закрытие модального окна при клике вне его
+window.onclick = function(event) {
+  const modal = document.getElementById('auth-modal');
+  if (event.target === modal) {
+    closeModal();
+  }
+}
